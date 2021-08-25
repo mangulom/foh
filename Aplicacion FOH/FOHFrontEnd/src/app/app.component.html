@@ -1,0 +1,52 @@
+<div style="padding: 30px;" class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-12">
+    <h2>Ventas</h2>
+    <table  class="table table-responsive table-stripped">
+      <thead>
+        <th>Cliente</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Ver Detalle</th>        
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of ventas; let i = index" (click)="OnRowClick(i, item)" [class.selected]="i == selectedRow">
+          <td>{{item.nomCliente}}</td>
+          <td>{{item.fecha | date: 'dd/mm/yyyy'}}</td>
+          <td>0.00</td>
+          <td><a (click)="abrirModal(item)">Ver Detalle</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<modal #myModal>
+  <modal-header>
+      <h2><strong>Detalle de la Venta</strong></h2>
+  </modal-header>
+
+  <modal-content>
+      <table class="table table-responsive table-stripped">
+        <thead>
+          <th>ID Producto</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let detalle of detalleVenta; let i = index">
+            <td>{{detalle.idProducto}}</td>
+            <td>{{detalle.nomProducto}}</td>
+            <td>{{detalle.precio}}</td>
+            <td>{{detalle.cantidad}}</td>
+            <td>{{detalle.precio * detalle.cantidad}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </modal-content>
+
+  <modal-footer>
+      Total Venta : {{totalVenta}}
+  </modal-footer>
+</modal>
